@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        {{> partials/head }}
+
+        <!-- Javascript -->
+        <script src="/socket.io/socket.io.js"></script>
+
+        <style>
+            .view .header {
+                /* Alignment */
+                margin-top: 18px;
+                margin-left: 30px;
+            }
+
+            .view .header h1 {
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 25px;
+                font-weight: 400;
+
+                /* Colour */
+                color: #2d3436;
+            }
+
+            .view .header h2 {
+                margin-left: 5px;
+
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 25px;
+                font-weight: 300;
+
+                /* Colour */
+                color: #2d3436;
+            }
+
+            .view .container {
+                /* Size */
+                height: 80%;
+                width: 800px;
+
+                /* Alignment */
+                display: flex;
+                align-self: center;
+                justify-content: center;
+            }
+
+            .view .container .info {
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            .view .container .stage {
+                /* Alignment */
+                align-items: center;
+            }
+
+            .view .container .stage h1 {
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 30px;
+                font-weight: 400;
+            }
+
+            .view .container .actions {
+                /* Alignment */
+                justify-content: center;
+            }
+
+            .view .container .nav {
+                /* Alignment */
+                justify-content: center;
+            }
+
+            .view .container .nav .button {
+                /* Alignment */
+                margin: 0px 10px;
+            }
+
+            .view .container .actions h1 {
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 27px;
+                font-weight: 400;
+            }
+
+            .view .container .actions .waiting-for-response {
+                /* Colour */
+                color: #f1c40f;
+            }
+
+            .view .container .actions .order-packed {
+                /* Colour */
+                color: #2ecc71;
+            }
+
+            .view .container .actions .hidden {
+                display: none;
+            }
+
+            #back {
+                background-color: #404040;
+            }
+
+            #continue {
+                background-color: #404040;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        {{> partials/side-menu }}
+        
+        <!-- View -->
+        <div class="view">
+            <!-- Header -->
+            <div class="row header">
+                <!-- Heading -->
+                <h1>Orders</h1>
+
+                <!-- Sub Heading -->
+                <h2>Pack</h2>
+
+                <!-- DEBUG Heading -->
+                <h2>{{orderId}}</h2>
+            </div>
+
+            <!-- Container -->
+            <div class="col container">
+                <!-- Row -->
+                <div class="col stage">
+                    <!-- Header -->
+                    <h1>Scan Items</h1>
+
+                    <!-- Spacer -->
+                    <br>
+
+                    <!-- Info -->
+                    <p class="info"><i class="fas fa-info-circle"></i> Move to the barcode scanner to pick the order.</p>
+                </div>
+
+                <!-- Spacer -->
+                <br><br><br><br>
+
+                <!-- Row -->
+                <div class="row actions">
+                    <h1 class="waiting-for-response">Waiting for Response</h1>
+                    <h1 class="order-packed hidden">Order Packed</h1>
+                </div>
+
+                <!-- Spacer -->
+                <br><br><br><br>
+
+                <!-- Row -->
+                <div class="row nav">
+                    <a id="back" class="button" href="#" onclick="back()">Back</a>
+                    <a id="continue" class="button" href="#" onclick="forward()">Continue</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Javascript -->
+        <script>
+            var orderId = '{{orderId}}'
+
+            function back() {
+                window.history.back()
+            }
+
+            function forward() {
+                window.location.href = '/orders/pack/3' + '?orderid=' + orderId
+            }
+        </script>
+
+        <script>
+            // Initialise SocketIO
+            var socket = io()
+
+            // Request all orders
+            socket.emit('orders/pack', {get: 'status', orderId: orderId})
+
+            // Orders event
+            socket.on('orders/pack', function(req) {
+                if (req.type == 'status' && req.orderId == orderId) {
+                    if (req.status == 'waiting-for-response') {
+                        $('.view .container .actions .waiting-for-response').removeClass('hidden')
+                        $('.view .container .actions .order-packed').addClass('hidden')
+                    }
+                    else if (req.status == 'order-packed') {
+                        $('.view .container .actions .order-packed').removeClass('hidden')
+                        $('.view .container .actions .waiting-for-response').addClass('hidden')
+                    }
+                }
+            })
+        </script>
+    </body> 
+</html>

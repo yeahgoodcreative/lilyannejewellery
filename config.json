@@ -1,0 +1,45 @@
+{
+    "auspost": {
+        "api_key": "fde88893-2677-4bf0-9c35-a6a9ef3315f5",
+        "account_number": "1015993653",
+        "password": "xc81625c0cdfbb58a6d4",
+
+        "from": {
+            "name": "Lily Anne Jewellery",
+            "lines": [
+                "3/11 Exeter Way"
+            ],
+            "suburb": "Caloundra West",
+            "state": "QLD",
+            "postcode": "4551"
+        },
+
+        "product_type": "PARCEL POST + SIGNATURE",
+        "print_layout": "THERMAL-LABEL-A6-1PP"
+    },
+
+    "bydesign": {
+        "username": "IntegrationAPI",
+        "password": "sf!9]3NV^vh[_53D",
+        "token": "",
+
+        "period_type": "week",
+        "period_length": 4,
+
+        "refresh_rate": 60000
+    },
+
+    "mongodb": {
+        "username": "yeahgood",
+        "password": "beginnings01",
+
+        "database": "lilyannejewellery",
+        "auth_source": "admin"
+    },
+
+    "print": {
+        "orderlabel_printer": "Zebra Small",
+        "packslip_printer": "Epson",
+        "shippinglabel_printer": "Zebra Large"
+    }
+}

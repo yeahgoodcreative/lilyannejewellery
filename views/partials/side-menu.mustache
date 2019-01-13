@@ -1,0 +1,77 @@
+<!-- Side Menu -->
+<div class="side-menu hidden">
+    <!-- Container -->
+    <div class="container">
+
+        <!-- Navigation Top -->
+        <ul class="nav-top">
+            <!-- Orders Group -->
+            <li class="nav-group">
+                <a href="/orders">Orders</a>
+            </li>
+
+            <!-- Inventory Group -->
+            <li class="nav-group">
+                <p>Inventory</p>
+                <ul>
+                    <li><a href="/inventory/items">Items</a></li>
+                    <li><a href="/inventory/bins">Bins</a></li>
+                    <li><a href="/inventory/locations">Locations</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <!-- Navigation Bottom -->
+        <ul class="nav-bottom">
+            <!--<li class="nav-group"><a href="/admin">Admin</a></li>-->
+            <!--<li class="nav-group"><a href="/profile">My Profile</a></li>-->
+        </ul>
+    </div>
+
+    <!-- Handle -->
+    <div class="handle">
+        <i class="fas fa-ellipsis-v"></i>
+    </div>
+</div>
+
+ <!-- Controller -->
+<script>
+    // Check for localstorage
+    if (localStorage.getItem('side-menu') == 'open') {
+        // Set margin
+        $('.side-menu').css('marginLeft', '0')
+        $('.side-menu').removeClass('hidden')
+    }
+    else if (localStorage.getItem('side-menu') == 'closed') {
+        // Set margin
+        $('.side-menu').css('marginLeft', '-220px')
+        $('.side-menu').addClass('hidden')
+    }
+
+    // On handle click
+    $('.side-menu .handle').on('click', function() {
+        // Check for hidden class
+        if ($('.side-menu').hasClass('hidden')) {
+            // Open side menu
+            $('.side-menu').animate({
+                // Animate margin
+                marginLeft: '0'
+            }, 500, function() {
+                // Remove hidden class
+                $('.side-menu').removeClass('hidden')
+                localStorage.setItem('side-menu', 'open')
+            })
+        }
+        else {
+            // Close side menu
+            $('.side-menu').animate({
+                // Animate margin
+                marginLeft: '-220'
+            }, 500, function() {
+                // Add hidden class
+                $('.side-menu').addClass('hidden')
+                localStorage.setItem('side-menu', 'closed')
+            })
+        }
+    })
+</script>

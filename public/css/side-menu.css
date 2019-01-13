@@ -1,0 +1,134 @@
+.side-menu {
+    /* Size */
+    width: 260px;
+    height: 100%;
+
+    /* Alignment */
+    display: flex;
+    flex-grow: 0;
+}
+
+.side-menu .handle {
+    /* Size */
+    width: 40px;
+    height: 100%;
+
+    /* Colour */
+    background-color: #2D3436;
+}
+
+.side-menu .handle i {
+    /* Size */
+    width: 100%;
+
+    /* Alignment */
+    margin-top: 20px;
+    text-align: center;
+
+    /* Font */
+    font-size: 25px;
+
+    /* Colour */
+    color: #ffffff;
+}
+
+.side-menu .container {
+    /* Size */
+    width: 220px;
+    height: 100%;
+
+    /* Alignment */
+    display: flex;
+    flex-direction: column;
+
+    /* Colour */
+    background-color: #42494B;
+}
+
+.side-menu .container .nav-top {
+    /* Alignment */
+    padding: 20px 15px;
+    box-sizing: border-box;
+    justify-self: flex-start;
+    flex-grow: 1;
+
+    /* Font */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+
+    /* List Style */
+    list-style: none;
+
+    /* Colour */
+    color: #ffffff;
+}
+
+.side-menu .container .nav-top a {
+    /* Hyperlink */
+    text-decoration: none;
+
+    /* Colour */
+    color: #ffffff;
+}
+
+.side-menu .container .nav-top .nav-group {
+    /* Alignment */
+    margin-bottom: 20px;
+}
+
+.side-menu .container .nav-top .nav-group ul {
+    /* Alignment */
+    margin-left: 20px;
+    
+    /* List */
+    list-style: none;
+
+    /* Font */
+    font-size: 16px;
+}
+
+.side-menu .container .nav-top .nav-group ul li {
+    /* Alignment */
+    margin-top: 5px;
+}
+
+.side-menu .container .nav-top .nav-group ul li a {
+    /* Hyperlink */
+    text-decoration: none;
+
+    /* Colour */
+    color: #ffffff;
+}
+
+.side-menu .container .nav-bottom {
+    /* Alignment */
+    padding: 20px 15px;
+    box-sizing: border-box;
+    justify-self: flex-end;
+    flex-grow: 0;
+
+    /* Font */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+
+    /* List Style */
+    list-style: none;
+
+    /* Colour */
+    color: #ffffff;
+}
+
+.side-menu .container .nav-bottom a {
+    /* Hyperlink */
+    text-decoration: none;
+
+    /* Colour */
+    color: #ffffff;
+}
+
+.side-menu .container .nav-bottom .nav-group {
+    /* Alignment */
+    margin-top: 20px;
+}

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <!-- Meta Data -->
+
+        <!-- Page Info -->
+        <title>Lily Anne</title>
+
+        <!-- Stylesheets -->
+        <style>
+            * {
+                /* Alignment */
+                margin: 0px;
+                padding: 0px;
+            }
+
+            html, body {
+                /* Size */
+                width: 100%;
+                height: 100%;
+
+                /* Alignment (Children) */
+                display: flex;
+            }
+
+            /* PARTIAL - Side Menu */
+            .side-menu {
+                /* Size */
+                width: 260px;
+                height: 100%;
+
+                /* Alignment */
+                display: flex;
+                flex-grow: 0;
+            }
+
+            .side-menu .handle {
+                /* Size */
+                width: 40px;
+                height: 100%;
+
+                /* Colour */
+                background-color: #2D3436;
+            }
+
+            .side-menu .handle i {
+                /* Size */
+                width: 100%;
+
+                /* Alignment */
+                margin-top: 20px;
+                text-align: center;
+
+                /* Font */
+                font-size: 25px;
+
+                /* Colour */
+                color: #ffffff;
+            }
+
+            .side-menu .container {
+                /* Size */
+                width: 220px;
+                height: 100%;
+
+                /* Alignment */
+                display: flex;
+                flex-direction: column;
+
+                /* Colour */
+                background-color: #42494B;
+            }
+
+            .side-menu .container .nav-top {
+                /* Alignment */
+                padding: 20px 15px;
+                box-sizing: border-box;
+                justify-self: flex-start;
+                flex-grow: 1;
+
+                /* Font */
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 400;
+                font-size: 14pt;
+
+                /* List Style */
+                list-style: none;
+
+                /* Colour */
+                color: #ffffff;
+            }
+
+            .side-menu .container .nav-top a {
+                /* Hyperlink */
+                text-decoration: none;
+
+                /* Colour */
+                color: #ffffff;
+            }
+
+            .side-menu .container .nav-top .nav-group {
+                /* Alignment */
+                margin-bottom: 20px;
+            }
+
+            .side-menu .container .nav-top .nav-group ul {
+                /* Alignment */
+                margin-left: 20px;
+                
+                /* List */
+                list-style: none;
+
+                /* Font */
+                font-size: 12pt;
+            }
+
+            .side-menu .container .nav-top .nav-group ul li {
+                /* Alignment */
+                margin-top: 5px;
+            }
+
+            .side-menu .container .nav-top .nav-group ul li a {
+                /* Hyperlink */
+                text-decoration: none;
+
+                /* Colour */
+                color: #ffffff;
+            }
+
+            .side-menu .container .nav-bottom {
+                /* Alignment */
+                padding: 20px 15px;
+                box-sizing: border-box;
+                justify-self: flex-end;
+                flex-grow: 0;
+
+                /* Font */
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 400;
+                font-size: 14pt;
+
+                /* List Style */
+                list-style: none;
+
+                /* Colour */
+                color: #ffffff;
+            }
+
+            .side-menu .container .nav-bottom a {
+                /* Hyperlink */
+                text-decoration: none;
+
+                /* Colour */
+                color: #ffffff;
+            }
+
+            .side-menu .container .nav-bottom .nav-group {
+                /* Alignment */
+                margin-top: 20px;
+            }
+
+            /* PARTIAL - View */
+            .view {
+                /* Size */
+                width: 100%;
+                height: 100%;
+
+                /* Alignment */
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+
+                overflow-x: hidden;
+                overflow-y: scroll;
+            }
+
+            .view .header {
+                /* Size */
+                width: 100%;
+
+                /* Alignment */
+                margin-top: 18px;
+                margin-left: 30px;
+
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 25px;
+                font-weight: 400;
+
+                /* Colour */
+                color: #2d3436;
+            }
+
+            .view .container {
+                /* Size */
+                width: 800px;
+                height: 20px;
+
+                /* Alignment */
+                margin-top: 50px;
+                align-self: center;
+            }
+
+            .view .container .row {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .view .container .row .info {
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            .view .container .row table {
+                /* Size */
+                width: 100%;
+
+                /* Alignment */
+                box-sizing: border-box;
+                border-collapse: separate;
+                border-spacing: 0px 20px;
+
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            .view .container .row table td {
+                /* Size */
+                height: 44px;
+
+                /* Alignment */
+                padding: 0px 10px;
+
+                /* Colour */
+                background-color: #ecf0f1;
+            }
+
+            .view .container .row table td:nth-child(4) {
+                /* Width */
+                width: 180px;
+
+                /* Alignment */
+                text-align: center;
+
+                /* Colour */
+                color: #ffffff;
+                background-color: #F5D34B;
+            }
+
+            .view .container .row table tr .void {
+                background-color: #404040;
+            }
+
+            .view .container .row table tr .complete {
+                background-color: #67B2E4;
+            }
+
+            .view .container .row table tr .waiting_payment {
+                background-color: #F5D34B;
+            }
+        </style>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        <link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    
+        <!-- Javascript -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <!-- Side Menu -->
+        <div class="side-menu hidden">
+            <!-- Container -->
+            <div class="container">
+
+                <!-- Navigation Top -->
+                <ul class="nav-top">
+                    <!-- Orders Group -->
+                    <li class="nav-group">
+                        <a href="#">Orders</a>
+                    </li>
+
+                    <!-- Inventory Group -->
+                    <li class="nav-group">
+                        <a href="#">Inventory</a>
+                        <ul>
+                            <li><a href="#">Items</a></li>
+                            <li><a href="#">Bins</a></li>
+                            <li><a href="#">Locations</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Customers Group -->
+                    <li class="nav-group">
+                        <p><a href="#">Customers</a></p>
+                    </li> 
+                </ul>
+
+                <!-- Navigation Bottom -->
+                <ul class="nav-bottom">
+                    <li class="nav-group"><a href="#">Admin</a></li>
+                    <li class="nav-group"><a href="#">My Profile</a></li>
+                </ul>
+            </div>
+
+            <!-- Handle -->
+            <div class="handle">
+                <i class="fas fa-ellipsis-v"></i>
+            </div>
+
+            <!-- Controller -->
+            <script>
+                if ($('.side-menu').hasClass('hidden')) {
+                    $('.side-menu').css('marginLeft', '-220px')
+                }
+
+                $('.side-menu .handle').on('click', function() {
+                    // Check for hidden class
+                    if ($('.side-menu').hasClass('hidden')) {
+                        // Open side menu
+                        $('.side-menu').animate({
+                            // Animate margin
+                            marginLeft: '0'
+                        }, 500, function() {
+                            // Remove hidden class
+                            $('.side-menu').removeClass('hidden')
+                        })
+                    }
+                    else {
+                        // Close side menu
+                        $('.side-menu').animate({
+                            // Animate margin
+                            marginLeft: '-220'
+                        }, 500, function() {
+                            // Add hidden class
+                            $('.side-menu').addClass('hidden')
+                        })
+                    }
+                })
+            </script>
+        </div>
+
+
+        <!-- View -->
+        <div class="view">
+            <!-- Header -->
+            <div class="header">
+                <!-- Title -->
+                <p>Orders</p>
+            </div>
+
+            <!-- Container 800px -->
+            <div class="container">
+                <!-- Row -->
+                <div class="row">
+                    <!-- Info -->
+                    <p class="info"><i class="fas fa-info-circle"></i> Click an order below to start packing.</p>
+                </div>
+
+                <!-- Spacer -->
+                <br>
+
+                <!-- Row -->
+                <div class="row">
+                    <!-- Table -->
+                    <table>
+                        <!-- Table Row -->
+                        <tr>
+                            <!-- Order Number -->
+                            <td>#144358</td>
+
+                            <!-- Order Date -->
+                            <td>10/03/2019</td>
+
+                            <!-- Billing Name -->
+                            <td>Ruhland, Angela</td>
+
+                            <!-- Order Status -->
+                            <td class="complete">Complete</td>
+                        </tr>
+
+                        <!-- Table Row -->
+                        <tr>
+                                <!-- Order Number -->
+                                <td>#144358</td>
+
+                                <!-- Order Date -->
+                                <td>10/03/2019</td>
+    
+                                <!-- Billing Name -->
+                                <td>Ruhland, Angela</td>
+    
+                                <!-- Order Status -->
+                                <td class="void">Void</td>
+                            </tr>
+
+                            <!-- Table Row -->
+                        <tr>
+                                <!-- Order Number -->
+                                <td>#144358</td>
+
+                                <!-- Order Date -->
+                                <td>10/03/2019</td>
+    
+                                <!-- Billing Name -->
+                                <td>Ruhland, Angela</td>
+    
+                                <!-- Order Status -->
+                                <td class="waiting_payment">Waiting Payment</td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>

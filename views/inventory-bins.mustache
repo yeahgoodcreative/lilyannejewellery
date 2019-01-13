@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        {{> partials/head }}
+
+        <!-- Javascript -->
+        <script src="/socket.io/socket.io.js"></script>
+
+        <style>
+            .view .header {
+                /* Alignment */
+                margin-top: 18px;
+                margin-left: 30px;
+            }
+
+            .view .header h1 {
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 25px;
+                font-weight: 400;
+
+                /* Colour */
+                color: #2d3436;
+            }
+
+            .view .header h2 {
+                margin-left: 5px;
+
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 25px;
+                font-weight: 300;
+
+                /* Colour */
+                color: #2d3436;
+            }
+
+            .view .container {
+                width: 800px;
+
+                margin-top: 50px;
+                align-self: center;
+            }
+
+            .view .container .info {
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            .view .container table {
+                /* Size */
+                width: 100%;
+
+                /* Alignment */
+                box-sizing: border-box;
+                border-collapse: separate;
+                border-spacing: 0px 20px;
+
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            .view .container table td {
+                /* Size */
+                height: 44px;
+
+                /* Alignment */
+                padding: 0px 10px;
+
+                /* Colour */
+                background-color: #ecf0f1;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        {{> partials/side-menu }}
+        
+        <!-- View -->
+        <div class="view">
+            <!-- Header -->
+            <div class="row header">
+                <!-- Heading -->
+                <h1>Inventory</h1>
+
+                <!-- Sub Heading -->
+                <h2>Bins</h2>
+            </div>
+
+            <!-- Container -->
+            <div class="col container">
+                <!-- Row -->
+                <div class="row">
+                    <!-- Info -->
+                    <p class="info"><i class="fas fa-info-circle"></i> Click an item to edit..</p>
+                </div>
+
+                <!-- Spacer -->
+                <br>
+
+                <!-- Row -->
+                <div class="row">
+                    <!-- Table -->
+                    <table>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Javascript -->
+        <script>
+            // Initialise SocketIO
+            var socket = io()
+
+            // Request all orders
+            socket.emit('inventory/bins', {get: 'all'})
+
+            // Orders event
+            socket.on('inventory/bins', function(req) {
+                // If type all
+                if (req.type == 'all') {
+                    // Fresh table data
+                    var html = ''
+
+                    // Iterate through orders
+                    for (bin of req.bins) {
+                        // Append to html
+                        html += '<tr>'
+                        html += '<td>' + bin.binId + '</td>'
+                        html += '<td>' + bin.locationId + '</td>'
+                        html += '<td>' + bin.memo + '</td>'
+                        html += '</tr>'
+                    }
+
+                    // Set table data
+                    $('.view .container .row table').html(html)
+                }
+
+                // If type latest
+                if (req.type == 'latest') {
+                    // Fresh table data
+                    var html = ''
+                    
+                    // Iterate through orders
+                    for (order of req.bins) {
+                        // Append to html
+                        html += '<tr>'
+                        html += '<td>' + bin.binId + '</td>'
+                        html += '<td>' + bin.locationId + '</td>'
+                        html += '<td>' + bin.memo + '</td>'
+                        html += '</tr>'
+                    }
+
+                    // Append current table data
+                    html += $('.view .container .row table').html()
+
+                    // Set table data
+                    $('.view .container .row table').html(html)
+                }
+            })
+        </script>
+    </body> 
+</html>
