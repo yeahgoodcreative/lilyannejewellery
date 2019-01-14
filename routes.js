@@ -252,16 +252,18 @@ var routes = function(io) {
                 },
                 items: [
                     {
-                        length: 5,
-                        height: 5,
-                        width: 5,
-                        weight: 5
+                        length: 10,
+                        width: 10,
+                        height: 10,
+                        weight: 1
                     }
                 ]
             },
             function(data) {
+
     
                 for (price of data.items[0].prices) {
+
                     if (price.product_type == config.auspost.product_type) {
                         var productId = price.product_id
 
@@ -315,10 +317,10 @@ var routes = function(io) {
                                     items: [
                                         {
                                             product_id: productId,
-                                            length: 5,
-                                            height: 5,
-                                            width: 5,
-                                            weight: 5,
+                                            length: 10,
+                                            width: 10,
+                                            height: 10,
+                                            weight: 1,
                                             authority_to_leave: false,
                                             allow_partial_delivery: false
                                         }

@@ -2,7 +2,7 @@ var parse = require('csv-parse')
 var generate = require('csv-generate')
 var fs = require('fs')
 
-var csv = fs.readFileSync('./inventory.csv').toString()
+var csv = fs.readFileSync('./dev/inventory.csv').toString()
 
 parse(csv, {
 
