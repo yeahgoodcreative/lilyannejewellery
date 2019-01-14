@@ -403,6 +403,10 @@ var routes = function(io) {
                 // Throw error
                 if (err) throw err
 
+                // Set status shipped
+                bydesignSetStatusShipped(order.orderId)
+
+                // Redirect
                 res.redirect('/orders')
             })
         })

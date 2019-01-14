@@ -21,6 +21,7 @@ var Location = require('./models/location')
 
 // ByDesign
 var bydesignOrders = require('./bydesignOrders')
+var bydesignSetStatusShipped = require('./bydesignSetStatusShipped')
 
 // AusPost
 var auspostGetItemPrices = require('./auspostGetItemPrices')
@@ -62,8 +63,6 @@ mongoose.connection.once('open', function() {
 
     // Process bydesign orders
     setInterval(bydesignOrders, config.bydesign.refresh_rate)
-
-    
 
     // Server Listener
     http.listen('8080', function() {
