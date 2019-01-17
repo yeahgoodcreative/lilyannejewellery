@@ -4,9 +4,6 @@
     <head>
         {{> partials/head }}
 
-        <!-- Javascript -->
-        <script src="/socket.io/socket.io.js"></script>
-
         <style>
             .view .header {
                 /* Alignment */
@@ -81,32 +78,15 @@
                 margin: 0px 10px;
             }
 
-            .view .container .actions h1 {
-                /* Font */
-                font-family: 'Montseratt', sans-serif;
-                font-size: 27px;
-                font-weight: 400;
-            }
-
-            .view .container .actions .waiting-for-response {
-                /* Colour */
-                color: #f1c40f;
-            }
-
-            .view .container .actions .order-packed {
-                /* Colour */
-                color: #2ecc71;
-            }
-
-            .view .container .actions .hidden {
-                display: none;
+            #print {
+                background-color: #62D995;
             }
 
             #back {
                 background-color: #404040;
             }
 
-            #continue {
+            #done {
                 background-color: #404040;
             }
 
@@ -135,42 +115,21 @@
                 <!-- Row -->
                 <div class="col stage">
                     <!-- Header -->
-                    <h1>Adjust Package</h1>
+                    <h1>Print Shipping Label</h1>
 
                     <!-- Spacer -->
                     <br>
 
                     <!-- Info -->
-                    <p class="info"><i class="fas fa-info-circle"></i> Adjust any of the follow values if required.</p>
+                    <p class="info"><i class="fas fa-print"></i> Make sure to select the printer "{{printer}}".</p>
                 </div>
 
                 <!-- Spacer -->
                 <br><br><br><br>
 
                 <!-- Row -->
-                <div class="col actions">
-                    
-                    <div class="row">
-                        <p class="info">Length (cm): </p>
-                        <input type="number" name="length" value="0">
-                    </div>
-
-                    <div class="row">
-                        <p class="info">Width (cm): </p>
-                        <input type="number" name="width" value="0">
-                    </div>
-
-                    <div class="row">
-                        <p class="info">Height (cm): </p>
-                        <input type="number" name="height" value="0">
-                    </div>
-
-                    <br>
-
-                    <div class="row">
-                        <p class="info">Weight (kg): </p>
-                        <input type="number" name="weight" value="0">
-                    </div>
+                <div class="row actions">
+                    <a id="print" class="button" href="#" onclick="print()">Print</a>
                 </div>
 
                 <!-- Spacer -->
@@ -179,7 +138,7 @@
                 <!-- Row -->
                 <div class="row nav">
                     <a id="back" class="button" href="#" onclick="back()">Back</a>
-                    <a id="continue" class="button" href="#" onclick="forward()">Continue</a>
+                    <a id="done" class="button" href="#" onclick="forward()">Done</a>
                 </div>
             </div>
         </div>
@@ -188,12 +147,16 @@
         <script>
             var orderId = '{{orderId}}'
 
+            function print() {
+                window.open('/orders/shippinglabel' + '?orderid=' + orderId, '_blank')
+            }
+
             function back() {
                 window.history.back()
             }
 
             function forward() {
-                window.location.href = '/orders/pack/4' + '?orderid=' + orderId
+                window.location.href = '/orders/pack/complete' + '?orderid=' + orderId
             }
         </script>
     </body> 

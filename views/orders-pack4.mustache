@@ -86,7 +86,7 @@
                 background-color: #404040;
             }
 
-            #done {
+            #continue {
                 background-color: #404040;
             }
 
@@ -115,7 +115,7 @@
                 <!-- Row -->
                 <div class="col stage">
                     <!-- Header -->
-                    <h1>Print Shipping Label</h1>
+                    <h1>Print Pack Slip</h1>
 
                     <!-- Spacer -->
                     <br>
@@ -138,7 +138,7 @@
                 <!-- Row -->
                 <div class="row nav">
                     <a id="back" class="button" href="#" onclick="back()">Back</a>
-                    <a id="done" class="button" href="#" onclick="forward()">Done</a>
+                    <a id="continue" class="button" href="#" onclick="forward()">Continue</a>
                 </div>
             </div>
         </div>
@@ -148,7 +148,7 @@
             var orderId = '{{orderId}}'
 
             function print() {
-                window.open('/orders/shippinglabel' + '?orderid=' + orderId, '_blank')
+                window.open('/orders/packslip' + '?orderid=' + orderId, '_blank')
             }
 
             function back() {
@@ -156,7 +156,7 @@
             }
 
             function forward() {
-                window.location.href = '/orders/pack/complete' + '?orderid=' + orderId
+                window.location.href = '/orders/pack/5' + '?orderid=' + orderId
             }
         </script>
     </body> 

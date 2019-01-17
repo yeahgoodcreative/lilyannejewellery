@@ -38,8 +38,8 @@
     },
 
     "print": {
-        "orderlabel_printer": "Zebra Small",
-        "packslip_printer": "Epson",
-        "shippinglabel_printer": "Zebra Large"
+        "orderlabel_printer": "ZDesigner GK420t Plus (ZPL)",
+        "packslip_printer": "EPSON TM-T20 Receipt5",
+        "shippinglabel_printer": "ZDesigner GK420t"
     }
 }

@@ -218,11 +218,15 @@ var routes = function(io) {
     })
 
     router.get('/orders/pack/3', function(req, res) {
-        res.render('orders-pack3', {orderId: req.query.orderid, printer: config.print.packslip_printer})
+        res.render('orders-pack3', {orderId: req.query.orderid})
     })
 
     router.get('/orders/pack/4', function(req, res) {
-        res.render('orders-pack4', {orderId: req.query.orderid, printer: config.print.shippinglabel_printer})
+        res.render('orders-pack4', {orderId: req.query.orderid, printer: config.print.packslip_printer})
+    })
+
+    router.get('/orders/pack/5', function(req, res) {
+        res.render('orders-pack5', {orderId: req.query.orderid, printer: config.print.shippinglabel_printer})
     })
 
     router.post('/orders/pack/scan', function(req, res) {
@@ -343,7 +347,7 @@ var routes = function(io) {
                                                 group: 'Parcel Post',
                                                 layout: config.auspost.print_layout,
                                                 branded: true,
-                                                left_offset: 0,
+                                                left_offset: 2,
                                                 top_offset: 0
                                             }
                                         ]
@@ -461,6 +465,32 @@ var routes = function(io) {
                         }
                     }
                 }
+
+                order.items.sort(function(a, b) {
+                    if (a.binId && b.binId) {
+                        var binA = a.binId.toUpperCase()
+                        var binB = b.binId.toUpperCase()
+
+                        if (binA < binB) {
+                            return -1
+                        }
+                        else if (binA > binB) {
+                            return 1
+                        }
+                        else {
+                            return 0
+                        }
+                    }
+                    else if (!a.binId) {
+                        return 1
+                    }
+                    else if (!b.binId) {
+                        return -1
+                    }
+                    else {
+                        return 0
+                    }
+                })
     
                 // Render view
                 res.render('scanner/sales-order-picking2', {"orderId": order.orderId, "orderDetails": order.items})
