@@ -28,6 +28,7 @@ var auspostGetItemPrices = require('./auspostGetItemPrices')
 var auspostCreateShipments = require('./auspostCreateShipments')
 var auspostCreateLabels = require('./auspostCreateLabels')
 var auspostGetLabels = require('./auspostGetLabels')
+var auspostGetAccounts = require('./auspostGetAccounts')
 
 // Routers
 var routes = require('./routes')

@@ -69,6 +69,7 @@
             .view .container .actions {
                 /* Alignment */
                 justify-content: center;
+                align-items: center;
             }
 
             .view .container .nav {
@@ -86,6 +87,12 @@
                 font-family: 'Montseratt', sans-serif;
                 font-size: 27px;
                 font-weight: 400;
+            }
+
+            .view .container .actions input {
+                /* Font */
+                margin-left: 5px;
+                margin-bottom: 5px;
             }
 
             .view .container .actions .waiting-for-response {
@@ -152,24 +159,24 @@
                     
                     <div class="row">
                         <p class="info">Length (cm): </p>
-                        <input type="number" name="length" value="0">
+                        <input type="number" name="length" value="{{length}}">
                     </div>
 
                     <div class="row">
                         <p class="info">Width (cm): </p>
-                        <input type="number" name="width" value="0">
+                        <input type="number" name="width" value="{{width}}">
                     </div>
 
                     <div class="row">
                         <p class="info">Height (cm): </p>
-                        <input type="number" name="height" value="0">
+                        <input type="number" name="height" value="{{height}}">
                     </div>
 
                     <br>
 
                     <div class="row">
                         <p class="info">Weight (kg): </p>
-                        <input type="number" name="weight" value="0">
+                        <input type="number" name="weight" value="{{weight}}">
                     </div>
                 </div>
 
@@ -193,7 +200,22 @@
             }
 
             function forward() {
-                window.location.href = '/orders/pack/4' + '?orderid=' + orderId
+                $.ajax({
+                    method: "POST",
+                    url: "/orders/pack/3",
+                    data: {
+                        orderId: orderId,
+                        length: $('input[name=length]').val(),
+                        width: $('input[name=width]').val(),
+                        height: $('input[name=height]').val(),
+                        weight: $('input[name=weight]').val(),
+                    }
+                })
+                .done(function(data) {
+                    if (data.success) {
+                        window.location.href = '/orders/pack/4' + '?orderid=' + orderId
+                    }
+                });
             }
         </script>
     </body> 

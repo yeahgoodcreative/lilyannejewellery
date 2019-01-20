@@ -204,6 +204,7 @@ var routes = function(io) {
             if (err) throw err
 
             auspostGetLabels(order.packing.shippingLabel.requestId, function(data) {
+
                 res.redirect(data.labels[0].url)
             })
         })
@@ -218,33 +219,17 @@ var routes = function(io) {
     })
 
     router.get('/orders/pack/3', function(req, res) {
-        res.render('orders-pack3', {orderId: req.query.orderid})
+        var length = config.auspost.default_length
+        var width = config.auspost.default_width
+        var height = config.auspost.default_height
+        var weight = config.auspost.default_weight
+
+        res.render('orders-pack3', {orderId: req.query.orderid, length: length, width: width, height: height, weight: weight})
     })
 
-    router.get('/orders/pack/4', function(req, res) {
-        res.render('orders-pack4', {orderId: req.query.orderid, printer: config.print.packslip_printer})
-    })
-
-    router.get('/orders/pack/5', function(req, res) {
-        res.render('orders-pack5', {orderId: req.query.orderid, printer: config.print.shippinglabel_printer})
-    })
-
-    router.post('/orders/pack/scan', function(req, res) {
-
-        var orderId = req.body['orderId']
-        var items = req.body['items']
-
-        var packingItems = []
-
-        for (item of items) {
-            packingItems.push({
-                itemId: item.itemId,
-                ordered: item.quantity,
-                packed: item.picked
-            })
-        }
-
-        Order.findOne({orderId: orderId}, function(err, order) {
+    router.post('/orders/pack/3', function(req, res) {
+        // Update order packing status
+        Order.findOne({orderId: req.body.orderId}, '', function(err, order) {
             if (err) throw err
 
             auspostGetItemPrices({
@@ -256,16 +241,15 @@ var routes = function(io) {
                 },
                 items: [
                     {
-                        length: 10,
-                        width: 10,
-                        height: 10,
-                        weight: 1
+                        length: req.body.length,
+                        width: req.body.width,
+                        height: req.body.height,
+                        weight: req.body.weight
                     }
                 ]
             },
             function(data) {
 
-    
                 for (price of data.items[0].prices) {
 
                     if (price.product_type == config.auspost.product_type) {
@@ -321,10 +305,10 @@ var routes = function(io) {
                                     items: [
                                         {
                                             product_id: productId,
-                                            length: 10,
-                                            width: 10,
-                                            height: 10,
-                                            weight: 1,
+                                            length: req.body.length,
+                                            width: req.body.width,
+                                            height: req.body.height,
+                                            weight: req.body.weight,
                                             authority_to_leave: false,
                                             allow_partial_delivery: false
                                         }
@@ -336,7 +320,7 @@ var routes = function(io) {
 
                             var shipmentId = data.shipments[0].shipment_id
                             var itemId = data.shipments[0].items[0].item_id
-    
+
                             auspostCreateLabels({
                                 preferences: [
                                     {
@@ -366,33 +350,73 @@ var routes = function(io) {
                             },
                             function(data) {
                                 var requestId = data.labels[0].request_id
-    
+
                                 // Update order packing status
-                                Order.findOne({orderId: orderId}, 'packing', function(err, order) {
+                                Order.findOne({orderId: req.body.orderId}, 'packing', function(err, order) {
                                     if (err) throw err
-    
+
                                     var packing = order.packing
-                                    packing.items = packingItems
                                     packing.shippingLabel = {shipmentId: shipmentId, itemId: itemId, requestId: requestId}
-    
-                                    Order.findOneAndUpdate({orderId: orderId}, {packing: packing}, function(err, order) {
+
+                                    Order.findOneAndUpdate({orderId: req.body.orderId}, {packing: packing}, function(err, order) {
                                         // Throw error
                                         if (err) throw err
 
-                                        // Emit all orders
-                                        io.emit('orders/pack', {
-                                            type: 'status',
-                                            orderId: orderId,
-                                            status: 'order-packed'
+                                        res.json({
+                                            success: true
                                         })
-
-                                        res.redirect('/scanner')
                                     })
                                 })
                             })
                         })
                     }
                 }
+            })
+        })
+    })
+
+    router.get('/orders/pack/4', function(req, res) {
+        res.render('orders-pack4', {orderId: req.query.orderid, printer: config.print.packslip_printer})
+    })
+
+    router.get('/orders/pack/5', function(req, res) {
+        res.render('orders-pack5', {orderId: req.query.orderid, printer: config.print.shippinglabel_printer})
+    })
+
+    router.post('/orders/pack/scan', function(req, res) {
+
+        var orderId = req.body['orderId']
+        var items = req.body['items']
+
+        var packingItems = []
+
+        for (item of items) {
+            packingItems.push({
+                itemId: item.itemId,
+                ordered: item.quantity,
+                packed: item.picked
+            })
+        }
+
+        // Update order packing status
+        Order.findOne({orderId: orderId}, 'packing', function(err, order) {
+            if (err) throw err
+
+            var packing = order.packing
+            packing.items = packingItems
+
+            Order.findOneAndUpdate({orderId: orderId}, {packing: packing}, function(err, order) {
+                // Throw error
+                if (err) throw err
+
+                // Emit all orders
+                io.emit('orders/pack', {
+                    type: 'status',
+                    orderId: orderId,
+                    status: 'order-packed'
+                })
+
+                res.redirect('/scanner')
             })
         })
     })

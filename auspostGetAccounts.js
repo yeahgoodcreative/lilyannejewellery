@@ -1,5 +1,5 @@
 
-var auspostGetItemPrices = function(data, callback) {
+var auspostGetAccounts = function(accountId, callback) {
     // Modules
     var https = require('https')
 
@@ -13,23 +13,19 @@ var auspostGetItemPrices = function(data, callback) {
         password: config.auspost.password
     }
 
-    // Convert json to string
-    var data = JSON.stringify(data)
-
     // Encode credentials
     var auth = Buffer.from(credentials.apiKey + ':' + credentials.password).toString('base64')
 
     // Request options
     var options = {
         hostname: 'digitalapi.auspost.com.au',
-        path: '/shipping/v1/prices/items',
+        path: '/shipping/v1/accounts/' + accountId,
         port: 443,
 
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Account-Number': credentials.accountNumber,
             'Authorization': 'Basic ' + auth,
-            'Content-Type': 'application/json'
         }
     }
 
@@ -53,9 +49,9 @@ var auspostGetItemPrices = function(data, callback) {
     })
 
     // Write data to request & end
-    req.write(data)
+    req.write('')
     req.end()
 }
 
 // Export module
-module.exports = auspostGetItemPrices
+module.exports = auspostGetAccounts

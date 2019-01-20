@@ -1,8 +1,8 @@
 {
     "auspost": {
-        "api_key": "fde88893-2677-4bf0-9c35-a6a9ef3315f5",
-        "account_number": "1015993653",
-        "password": "xc81625c0cdfbb58a6d4",
+        "api_key": "6191c4ee-ce04-41d8-b8e8-d776a4272065",
+        "account_number": "",
+        "password": "",
 
         "from": {
             "name": "Lily Anne Jewellery",
@@ -15,12 +15,17 @@
         },
 
         "product_type": "PARCEL POST + SIGNATURE",
-        "print_layout": "THERMAL-LABEL-A6-1PP"
+        "print_layout": "THERMAL-LABEL-A6-1PP",
+
+        "default_length": 10,
+        "default_width": 10,
+        "default_height": 10,
+        "default_weight": 0.5
     },
 
     "bydesign": {
         "username": "IntegrationAPI",
-        "password": "sf!9]3NV^vh[_53D",
+        "password": "",
         "token": "",
 
         "period_type": "week",
@@ -30,8 +35,8 @@
     },
 
     "mongodb": {
-        "username": "yeahgood",
-        "password": "beginnings01",
+        "username": "",
+        "password": "",
 
         "database": "lilyannejewellery",
         "auth_source": "admin"
