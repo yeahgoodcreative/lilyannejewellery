@@ -37,7 +37,7 @@ var routes = require('./routes')
 var sockets = require('./sockets')
 
 // Mongoose
-mongoose.connect('mongodb://lilyannejewellery.yeahgoodcreative.com.au:27017/' + config.mongodb.database, {useNewUrlParser: true, authSource: config.mongodb.auth_source, user: config.mongodb.username, pass: config.mongodb.password})
+mongoose.connect('mongodb://localhost:27017/' + config.mongodb.database, {useNewUrlParser: true, authSource: config.mongodb.auth_source, user: config.mongodb.username, pass: config.mongodb.password})
 
 mongoose.connection.on('error', function(err) {
     if (err) throw err
