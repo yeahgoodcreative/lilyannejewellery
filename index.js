@@ -20,7 +20,8 @@ var Bin = require('./models/bin')
 var Location = require('./models/location')
 
 // ByDesign
-var bydesignOrders = require('./bydesignOrders')
+var bydesignGetOrders = require('./bydesignGetOrders')
+var bydesignGetParty = require('./bydesignGetParty')
 var bydesignSetStatusShipped = require('./bydesignSetStatusShipped')
 
 // AusPost
@@ -64,7 +65,8 @@ mongoose.connection.once('open', function() {
 
     // Process bydesign orders
     // setInterval(bydesignOrders, config.bydesign.refresh_rate)
-    bydesignOrders()
+    // bydesignOrders()
+    bydesignGetParty()
 
     // Per order
     // 1. Create shipment

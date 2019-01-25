@@ -113,6 +113,11 @@
                 background-color: #404040;
             }
 
+            .view .container table .party {
+                /* Colour */
+                background-color: #9b59b6;
+            }
+
         </style>
     </head>
 
@@ -193,6 +198,10 @@
                         }
                         else if (order.status == 'void') {
                             statusMessage = 'Void'
+                        }
+
+                        if (order.partyId != '0') {
+                            order.status = 'party'
                         }
 
                         // Append to html

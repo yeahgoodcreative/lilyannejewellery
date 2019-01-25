@@ -4,6 +4,7 @@ var mongoose = require('mongoose')
 // Schema
 var schema = new mongoose.Schema({
     orderId: String,
+    repId: String,
     customerId: String,
     status: String,
     orderDate: String,
@@ -27,6 +28,7 @@ var schema = new mongoose.Schema({
     shipCity: String,
     shipState: String,
     shipPostalCode: String,
+    shipGeoCode: String,
     shipCounty: String,
     shipCountry: String,
     shipEmail: String,
@@ -44,13 +46,41 @@ var schema = new mongoose.Schema({
 
     items: [
         {
+            orderId: String,
+            partyId: String,
+            orderDetailId: String,
             itemId: String,
             description: String,
             quantity: String,
             price: String,
             volume: String,
             tax: String,
-            taxableAmount: String
+            taxableAmount: String,
+            groupOwner: String,
+            parentOrderDetailId: String,
+            warehouseName: String,
+            warehouseEmail: String,
+            warehousePackSlipLine1: String,
+            warehousePackSlipLine2: String,
+            warehousePackSlipLine3: String,
+            warehousePackSlipLine4: String,
+            warehousePackSlipLine5: String,
+            warehousePackSlipLine6: String,
+            warehousePickupLocation: String,
+            warheouseCompanyTaxId: String,
+            warehouseIntlCompanyName: String,
+            warehousePackSlipTaxTitle: String,
+            warehousePackSlipTaxPercentage: String,
+            packSlipProcessId: String,
+            volume2: String,
+            volume3: String,
+            volume4: String,
+            otherPrice1: String,
+            otherPrice2: String,
+            otherPrice3: String,
+            otherPrice4: String,
+            packSlipProductId: String,
+            packSlipBarcode: String
         }
     ],
 

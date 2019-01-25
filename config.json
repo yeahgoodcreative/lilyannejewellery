@@ -1,8 +1,8 @@
 {
     "auspost": {
-        "api_key": "fde88893-2677-4bf0-9c35-a6a9ef3315f5",
-        "account_number": "1015993653",
-        "password": "xc81625c0cdfbb58a6d4",
+        "api_key": "",
+        "account_number": "",
+        "password": "",
 
         "from": {
             "name": "Lily Anne Jewellery",
@@ -25,7 +25,7 @@
 
     "bydesign": {
         "username": "IntegrationAPI",
-        "password": "sf!9]3NV^vh[_53D",
+        "password": "",
         "token": "",
 
         "period_type": "week",
@@ -35,8 +35,8 @@
     },
 
     "mongodb": {
-        "username": "yeahgood",
-        "password": "beginnings01",
+        "username": "",
+        "password": "",
 
         "database": "lilyannejewellery",
         "auth_source": "admin"

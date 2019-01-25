@@ -2,6 +2,7 @@
 var auspostGetOrderSummary = function(orderNumber, callback) {
     // Modules
     var https = require('https')
+    var fs = require('fs')
 
     // Config
     var config = require('./config')
@@ -34,20 +35,22 @@ var auspostGetOrderSummary = function(orderNumber, callback) {
     // Create new request
     var req = https.request(options, function(res) {
 
-        // Create body buffer string
-        var bodyBuffer = ''
+        // // Create body buffer string
+        // var bodyBuffer = ''
 
-        // EVENT: Data
-        res.on('data', function(body) {
-            // Append body to body buffer
-            bodyBuffer += body
-        })
+        // // EVENT: Data
+        // res.on('data', function(body) {
+        //     // Append body to body buffer
+        //     bodyBuffer += body
+        // })
 
-        // EVENT: End
-        res.on('end', function() {
-            // Callback with response json
-            callback(bodyBuffer.toString())
-        })
+        // // EVENT: End
+        // res.on('end', function() {
+        //     // Callback with response json
+        //     callback(bodyBuffer.toString())
+        // })
+
+        callback(res)
     })
 
     // Write data to request & end

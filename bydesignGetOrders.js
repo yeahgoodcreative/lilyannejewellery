@@ -1,6 +1,6 @@
 
 
-var bydesignOrders = function() {
+var bydesignGetOrders = function() {
     // Modules
     var soap = require('soap')
 
@@ -79,7 +79,7 @@ var bydesignOrders = function() {
                 // Get promised data from order promise
                 orderPromise.then(function(result) {
 
-                    console.log(result.orderDetailsInfo.OrderDetailsResponse.OrderDetailsResponseV2)
+                    // console.log(result.orderDetailsInfo.OrderDetailsResponse.OrderDetailsResponseV2)
 
                     // Remap result
                     var order = result.order
@@ -112,13 +112,41 @@ var bydesignOrders = function() {
                         for (item of orderDetailsInfo.OrderDetailsResponse.OrderDetailsResponseV2) {
                             // Push item to items array
                             items.push({
+                                orderId: item.OrderID,
+                                partyId: item.PartyID,
+                                orderDetailId: item.OrderDetailID,
                                 itemId: item.ProductID,
                                 description: item.Description,
-                                quantity: item.Quantity,
+                                quantity: item.quantity,
                                 price: item.Price,
                                 volume: item.Volume,
                                 tax: item.Tax,
-                                taxableAmount: item.TaxableAmount
+                                taxableAmount: item.TaxableAmount,
+                                groupOwner: item.GroupOwner,
+                                parentOrderDetailId: item.ParentOrderDetailID,
+                                warehouseName: item.WarehouseName,
+                                warehouseEmail: item.WarehouseEmail,
+                                warehousePackSlipLine1: item.WarehousePackSlipLine1,
+                                warehousePackSlipLine2: item.WarehousePackSlipLine2,
+                                warehousePackSlipLine3: item.WarehousePackSlipLine3,
+                                warehousePackSlipLine4: item.WarehousePackSlipLine4,
+                                warehousePackSlipLine5: item.WarehousePackSlipLine5,
+                                warehousePackSlipLine6: item.WarehousePackSlipLine6,
+                                warehousePickupLocation: item.WarehousePickupLocation,
+                                warheouseCompanyTaxId: item.WarheouseCompanyTaxID,
+                                warehouseIntlCompanyName: item.WarehouseIntlCompanyName,
+                                warehousePackSlipTaxTitle: item.WarehousePackSlipTaxTitle,
+                                warehousePackSlipTaxPercentage: item.WarehousePackSlipTaxPercentage,
+                                packSlipProcessId: item.PackSlipProcessID,
+                                volume2: item.Volume2,
+                                volume3: item.Volume3,
+                                volume4: item.Volume4,
+                                otherPrice1: item.OtherPrice1,
+                                otherPrice2: item.OtherPrice2,
+                                otherPrice3: item.OtherPrice3,
+                                otherPrice4: item.OtherPrice4,
+                                packSlipProductId: item.PackSlipProcessID,
+                                packSlipBarcode: item.PackSlipBarcode
                             })
                         }
                     }
@@ -126,6 +154,7 @@ var bydesignOrders = function() {
                     // Create new order
                     var order = {
                         orderId: orderInfo.OrderID,
+                        repId: orderInfo.RepNumber,
                         customerId: orderInfo.RepNumber,
                         status: status,
                         orderDate: orderInfo.OrderDate,
@@ -149,6 +178,7 @@ var bydesignOrders = function() {
                         shipCity: orderInfo.ShipCity,
                         shipState: orderInfo.ShipState,
                         shipPostalCode: orderInfo.ShipPostalCode,
+                        shipGeoCode: orderInfo.ShipGeoCode,
                         shipCounty: orderInfo.ShipCounty,
                         shipCountry: orderInfo.ShipCountry,
                         shipEmail: orderInfo.ShipEmail,
@@ -179,4 +209,4 @@ var bydesignOrders = function() {
     })
 }
 
-module.exports = bydesignOrders
+module.exports = bydesignGetOrders

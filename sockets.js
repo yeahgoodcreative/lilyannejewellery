@@ -20,7 +20,7 @@ var sockets = function(io) {
             if (req.get == 'all') {
 
                 // Get orders from database
-                Order.find({}, 'orderId orderDate billName1 status packing', {sort: {orderId: -1}}, function (err, orders) {
+                Order.find({}, 'orderId orderDate billName1 status packing partyId', {sort: {orderId: -1}}, function (err, orders) {
                     // Throw error
                     if (err) throw err
 

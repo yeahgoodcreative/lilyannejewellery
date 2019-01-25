@@ -258,6 +258,8 @@ var routes = function(io) {
             },
             function(data) {
 
+                console.log(data)
+
                 for (price of data.items[0].prices) {
 
                     if (price.product_type == config.auspost.product_type) {
@@ -574,13 +576,8 @@ var routes = function(io) {
             function(data) {
 
                 auspostGetOrderSummary(data.order.order_id, function(data) {
-
-                    // Set response content type
-                    res.contentType('application/pdf')
-
-                    res.send(data)
+                    data.pipe(res)
                 })
-
                 
             })
         })
