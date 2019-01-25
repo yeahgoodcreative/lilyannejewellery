@@ -37,7 +37,7 @@ var routes = require('./routes')
 var sockets = require('./sockets')
 
 // Mongoose
-mongoose.connect('mongodb://localhost:27017/' + config.mongodb.database, {useNewUrlParser: true, authSource: config.mongodb.auth_source, user: config.mongodb.username, pass: config.mongodb.password})
+mongoose.connect('mongodb://lilyannejewellery.yeahgoodcreative.com.au:27017/' + config.mongodb.database, {useNewUrlParser: true, authSource: config.mongodb.auth_source, user: config.mongodb.username, pass: config.mongodb.password})
 
 mongoose.connection.on('error', function(err) {
     if (err) throw err
@@ -63,7 +63,20 @@ mongoose.connection.once('open', function() {
     sockets(io)
 
     // Process bydesign orders
-    setInterval(bydesignOrders, config.bydesign.refresh_rate)
+    // setInterval(bydesignOrders, config.bydesign.refresh_rate)
+    bydesignOrders()
+
+    // Per order
+    // 1. Create shipment
+    // 2. Create labels
+    // 3. Get labels
+
+    // Per day
+    // 4. Create order
+    // 5. Print order summary
+    // 6. Order summary
+
+
 
     // Server Listener
     http.listen('8080', function() {

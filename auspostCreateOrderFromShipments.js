@@ -1,5 +1,5 @@
 
-var auspostGetAccounts = function(accountId, callback) {
+var auspostCreateOrderFromShipments = function(data, callback) {
     // Modules
     var https = require('https')
 
@@ -13,19 +13,24 @@ var auspostGetAccounts = function(accountId, callback) {
         password: config.auspost.password
     }
 
+    // Convert json to string
+    var data = JSON.stringify(data)
+
     // Encode credentials
     var auth = Buffer.from(credentials.apiKey + ':' + credentials.password).toString('base64')
 
     // Request options
     var options = {
         hostname: 'digitalapi.auspost.com.au',
-        path: '/test/shipping/v1/accounts/' + accountId,
+        path: '/test/shipping/v1/orders',
         port: 443,
 
-        method: 'GET',
+        method: 'PUT',
         headers: {
             'Account-Number': credentials.accountNumber,
             'Authorization': 'Basic ' + auth,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         }
     }
 
@@ -49,9 +54,9 @@ var auspostGetAccounts = function(accountId, callback) {
     })
 
     // Write data to request & end
-    req.write('')
+    req.write(data)
     req.end()
 }
 
 // Export module
-module.exports = auspostGetAccounts
+module.exports = auspostCreateOrderFromShipments

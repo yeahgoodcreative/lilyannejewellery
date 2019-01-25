@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        {{> partials/head }}
+
+        <!-- Javascript -->
+        <script src="/socket.io/socket.io.js"></script>
+
+        <!-- Stylesheet -->
+        <style>
+            .view .header {
+                /* Alignment */
+                margin-top: 18px;
+                margin-left: 30px;
+            }
+
+            .view .header h1 {
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 25px;
+                font-weight: 400;
+
+                /* Colour */
+                color: #2d3436;
+            }
+
+            .view .header h2 {
+                margin-left: 5px;
+
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 25px;
+                font-weight: 300;
+
+                /* Colour */
+                color: #2d3436;
+            }
+
+            .view .container {
+                width: 800px;
+
+                margin-top: 50px;
+                align-self: center;
+
+                overflow-y: scroll;
+            }
+
+            .view .container .info {
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            .view .container table {
+                /* Size */
+                width: 100%;
+
+                /* Alignment */
+                box-sizing: border-box;
+                border-collapse: separate;
+                border-spacing: 0px 20px;
+
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            .view .container table td {
+                /* Size */
+                height: 44px;
+
+                /* Alignment */
+                padding: 0px 10px;
+
+                /* Colour */
+                background-color: #ecf0f1;
+            }
+
+            .view .container table td:last-child {
+                /* Width */
+                width: 180px;
+
+                /* Alignment */
+                text-align: center;
+
+                /* Colour */
+                color: #ffffff;
+            }
+
+            .view .container table .complete {
+                /* Colour */
+                background-color: #67b2e4;
+            }
+
+            .view .container table .packed {
+                /* Colour */
+                background-color: #67b2e4;
+            }
+
+            .view .container table .ready-to-pack {
+                /* Colour */
+                background-color: #62d995;
+            }
+
+            .view .container table .waiting-payment {
+                /* Colour */
+                background-color: #f5d34b;
+            }
+
+            .view .container table .void {
+                /* Colour */
+                background-color: #404040;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        {{> partials/side-menu }}
+        
+        <!-- View -->
+        <div class="view">
+            <!-- Header -->
+            <div class="row header">
+                <!-- Heading -->
+                <h1>AusPost</h1>
+
+                <!-- Sub Heading -->
+                <h2>Shipments</h2>
+            </div>
+
+            <!-- Container -->
+            <div class="col container">
+                <!-- Row -->
+                <div class="row">
+                    <!-- Info -->
+                    {{! <p class="info"><i class="fas fa-info-circle"></i> Click an order below to start packing.</p> }}
+                </div>
+
+                <!-- Spacer -->
+                <br>
+
+                {{#shipments}}
+                    <!-- Row -->
+                    <div class="">
+                        <h3>{{shipment_id}}</h3>
+                        <br>
+                        <p>Reference: {{shipment_reference}}</p>
+                        <p>Creation Date: {{shipment_creation_date}}</p>
+                        <p>Email Tracking: {{email_tracking_enabled}}</p>
+                        <p>Options: {{options}}</p>
+                        <p>Summary: {{shipment_summary}}</p>
+                        <p>Movement Type: {{movement_type}}</p>
+                        <p>Charge to Account: {{charge_to_account}}</p>
+                        <br>
+                        <p><strong>From:</strong></p>
+                        <div>
+                            {{#from}}
+                                <p>Type: {{type}}</p>
+                                <p>Name: {{name}}</p>
+                                <p>Lines:</p>
+                                <div>
+                                    {{#lines}}
+                                        <p>{{.}}</p>
+                                    {{/lines}}
+                                </div>
+                                <p>Suburb: {{suburb}}</p>
+                                <p>Postcode: {{postcode}}</p>
+                                <p>State: {{state}}</p>
+                                <p>Country: {{country}}</p>
+                                <br>
+                            {{/from}}
+                        </div>
+                        <p><strong>To:</strong></p>
+                        <div>
+                            {{#to}}
+                                <p>Type: {{type}}</p>
+                                <p>Name: {{name}}</p>
+                                <p>Lines:</p>
+                                <div>
+                                    {{#lines}}
+                                        <p>{{.}}</p>
+                                    {{/lines}}
+                                </div>
+                                <p>Suburb: {{suburb}}</p>
+                                <p>Postcode: {{postcode}}</p>
+                                <p>State: {{state}}</p>
+                                <p>Country: {{country}}</p>
+                                <br>
+                            {{/to}}
+                        </div>
+                        <p><strong>Items:</strong></p>
+                        <div>
+                            {{#items}}
+                                <p>Weight: {{weight}}</p>
+                                <p>Height: {{height}}</p>
+                                <p>Length: {{length}}</p>
+                                <p>Width: {{width}}</p>
+                                <p>Contains Dangerous Goods: {{contains_dangerous_goods}}</p>
+                                <p>Authority to Leave: {{authority_to_leave}}</p>
+                                <p>Safety Drop Enabled: {{safe_drop_enabled}}</p>
+                                <p>Allow Partial Delivery: {{allow_partial_delivery}}</p>
+                                <p>Item ID: {{item_id}}</p>
+                                <p>Tracking Details:</p>
+                                <div>
+                                    {{#tracking_details}}
+                                        <p>Article ID: {{article_id}}</p>
+                                        <p>Consignment ID: {{consignment_id}}</p>
+                                        <p>Barcode ID: {{barcode_id}}</p>
+                                    {{/tracking_details}}
+                                </div>
+                                <p>Product ID: {{product_id}}</p>
+                                <p>Item Summary:</p>
+                                <div>
+                                    {{#item_summary}}
+                                        <p>Total Cost: {{total_cost}}</p>
+                                        <p>Total Cost Ex/GST: {{total_cost_ex_gst}}</p>
+                                        <p>Total GST: {{total_gst}}</p>
+                                        <p>Status: {{status}}</p>
+                                    {{/item_summary}}
+                                </div>
+                                <p>Item Contents:</p>
+                                <div>
+                                    {{#item_contents}}
+                                        <p>{{.}}</p>
+                                    {{/item_contents}}
+                                </div>
+                                <p>Label:</p>
+                                <div>
+                                    {{#label}}
+                                        <p>Label URL: {{label_url}}</p>
+                                        <p>Status: {{status}}</p>
+                                        <p>Errors:</p>
+                                        <div>
+                                            {{#errors}}
+                                                <p>{{.}}</p>
+                                            {{/errors}}
+                                        </div>
+                                        <p>Label Creation Date: {{label_creation_date}}</p>
+                                    {{/label}}
+                                </div>
+                                <p>Postage Details: {{postage_details}}</p>
+                            {{/items}}
+                        </div>
+                    </div>
+
+                    <!-- Spacer -->
+                    <br>
+                    <hr>
+                    <br>
+                {{/shipments}}
+            </div>
+        </div>
+    </body> 
+</html>

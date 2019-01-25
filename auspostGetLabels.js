@@ -19,7 +19,7 @@ var auspostGetLabels = function(requestId, callback) {
     // Request options
     var options = {
         hostname: 'digitalapi.auspost.com.au',
-        path: '/shipping/v1/labels/' + requestId,
+        path: '/test/shipping/v1/labels/' + requestId,
         port: 443,
 
         method: 'GET',

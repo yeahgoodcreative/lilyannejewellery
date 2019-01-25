@@ -79,6 +79,8 @@ var bydesignOrders = function() {
                 // Get promised data from order promise
                 orderPromise.then(function(result) {
 
+                    console.log(result.orderDetailsInfo.OrderDetailsResponse.OrderDetailsResponseV2)
+
                     // Remap result
                     var order = result.order
                     var orderInfo = result.orderInfo

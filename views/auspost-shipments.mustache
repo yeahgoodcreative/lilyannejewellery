@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        {{> partials/head }}
+
+        <!-- Javascript -->
+        <script src="/socket.io/socket.io.js"></script>
+
+        <!-- Stylesheet -->
+        <style>
+            .view .header {
+                /* Alignment */
+                margin-top: 18px;
+                margin-left: 30px;
+            }
+
+            .view .header h1 {
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 25px;
+                font-weight: 400;
+
+                /* Colour */
+                color: #2d3436;
+            }
+
+            .view .header h2 {
+                margin-left: 5px;
+
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 25px;
+                font-weight: 300;
+
+                /* Colour */
+                color: #2d3436;
+            }
+
+            .view .container {
+                width: 800px;
+
+                margin-top: 50px;
+                align-self: center;
+            }
+
+            .view .container .info {
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            .view .container table {
+                /* Size */
+                width: 100%;
+
+                /* Alignment */
+                box-sizing: border-box;
+                border-collapse: separate;
+                border-spacing: 0px 20px;
+
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            .view .container table td {
+                /* Size */
+                height: 44px;
+
+                /* Alignment */
+                padding: 0px 10px;
+
+                /* Colour */
+                background-color: #ecf0f1;
+            }
+
+            .header h1, .header h2 {
+                flex-grow: 0;
+            }
+
+            .header .box {
+                display: flex;                
+                flex-grow: 1;
+
+                justify-content: flex-end;
+                align-items: center;
+
+                padding-right: 30px;
+            }
+
+
+        </style>
+    </head>
+
+    <body>
+        {{> partials/side-menu }}
+        
+        <!-- View -->
+        <div class="view">
+            <!-- Header -->
+            <div class="row header">
+                <!-- Heading -->
+                <h1>AusPost</h1>
+
+                <!-- Sub Heading -->
+                <h2>Shipments</h2>
+
+                <div class="box">
+                    <a href="/auspost/shipments/createorder" target="_blank" class="button">
+                        <p>Print Manifest</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Container -->
+            <div class="col container">
+                <!-- Row -->
+                <div class="row">
+                    <!-- Info -->
+                    <p class="info"><i class="fas fa-info-circle"></i> Click an order below to start packing.</p>
+                </div>
+
+                <!-- Spacer -->
+                <br>
+
+                <!-- Row -->
+                <div class="row">
+                    <!-- Table -->
+                    <table>
+                        
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Javascript -->
+        <script>
+            // Initialise SocketIO
+            var socket = io()
+
+            // Request all orders
+            socket.emit('auspost/shipments', {get: 'order'})
+
+            // Orders event
+            socket.on('auspost/shipments', function(req) {
+                
+
+                // If type all
+                if (req.type == 'order') {
+                    // Fresh table data
+                    var html = ''
+
+                    // Iterate through orders
+                    for (shipment of req.shipments) {
+
+                        // Append to html
+                        html += '<tr>'
+                        html += '<td>' + shipment.shipmentId + '</td>'
+                        html += '</tr>'
+                    }
+
+                    // Set table data
+                    $('.view .container .row table').html(html)
+                }
+            })
+        </script>
+    </body> 
+</html>

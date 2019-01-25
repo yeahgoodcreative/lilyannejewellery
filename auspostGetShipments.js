@@ -1,5 +1,5 @@
 
-var auspostGetAccounts = function(accountId, callback) {
+var auspostGetShipments = function(callback) {
     // Modules
     var https = require('https')
 
@@ -19,7 +19,7 @@ var auspostGetAccounts = function(accountId, callback) {
     // Request options
     var options = {
         hostname: 'digitalapi.auspost.com.au',
-        path: '/test/shipping/v1/accounts/' + accountId,
+        path: '/test/shipping/v1/shipments',
         port: 443,
 
         method: 'GET',
@@ -54,4 +54,4 @@ var auspostGetAccounts = function(accountId, callback) {
 }
 
 // Export module
-module.exports = auspostGetAccounts
+module.exports = auspostGetShipments

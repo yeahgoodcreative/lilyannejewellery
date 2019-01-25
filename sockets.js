@@ -6,6 +6,7 @@ var sockets = function(io) {
     var Item = require('./models/item')
     var Bin = require('./models/bin')
     var Location = require('./models/location')
+    var Shipment = require('./models/shipment')
 
     // Config
     var config = require('./config')
@@ -101,6 +102,23 @@ var sockets = function(io) {
         // EVENT: Inventory Locations
         socket.on('orders/pack', function(req) {
             
+        })
+
+        // EVENT: AusPost Shipments
+        socket.on('auspost/shipments', function(req) {
+            // Requested all
+            if (req.get == 'order') {
+
+                // Get shipments from database
+                Shipment.find({ordered: {$eq: false}}, 'shipmentId', {}, function (err, shipments) {
+
+                    // Emit order shipments
+                    socket.emit('auspost/shipments', {
+                        type: 'order',
+                        shipments: shipments
+                    })
+                })
+            }
         })
     })
 }

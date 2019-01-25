@@ -11,6 +11,7 @@ var routes = function(io) {
     var Item = require('./models/item')
     var Bin = require('./models/bin')
     var Location = require('./models/location')
+    var Shipment = require('./models/shipment')
 
     // Config
     var config = require('./config')
@@ -20,6 +21,13 @@ var routes = function(io) {
     var auspostCreateShipments = require('./auspostCreateShipments')
     var auspostCreateLabels = require('./auspostCreateLabels')
     var auspostGetLabels = require('./auspostGetLabels')
+    var auspostGetAccounts = require('./auspostGetAccounts')
+    var auspostGetShipments = require('./auspostGetShipments')
+    var auspostCreateOrderFromShipments = require('./auspostCreateOrderFromShipments')
+    var auspostGetOrderSummary = require('./auspostGetOrderSummary')
+
+    // ByDesign
+    var bydesignSetStatusShipped = require('./bydesignSetStatusShipped')
 
     // Instantiate router
     var router = new Router()
@@ -362,8 +370,18 @@ var routes = function(io) {
                                         // Throw error
                                         if (err) throw err
 
-                                        res.json({
-                                            success: true
+                                        // Create a shipment
+                                        var shipment = new Shipment({
+                                            shipmentId: shipmentId,
+                                            ordered: false
+                                        })
+
+                                        shipment.save(function(err, shipment) {
+                                            if (err) throw err
+
+                                            res.json({
+                                                success: true
+                                            })
                                         })
                                     })
                                 })
@@ -520,6 +538,54 @@ var routes = function(io) {
                 res.render('scanner/sales-order-picking2', {"orderId": order.orderId, "orderDetails": order.items})
             })
         })
+    })
+
+    router.get('/auspost/account', function(req, res) {
+        auspostGetAccounts(config.auspost.account_number, function(data) {
+            res.render('auspost-account', data)
+        })
+    })
+
+    router.get('/auspost/shipments', function(req, res) {
+        res.render('auspost-shipments', {})
+    })
+
+    router.get('/auspost/shipments/createorder', function(req, res) {
+        Shipment.find({ordered: {$eq: false}}, 'shipmentId', {}, function (err, docs) {
+            var shipments = []
+            var promises = []
+
+            for (var shipment of docs) {
+                shipments.push({shipment_id: shipment.shipmentId})
+
+                Shipment.findOne({shipmentId: shipment.shipmentId}, function(err, doc) {
+                    if (err) throw err
+
+                    Shipment.findOneAndUpdate({shipmentId: doc.shipmentId}, {ordered: true}, function(err, shipment) {
+                        if (err) throw err
+
+                    })
+                })
+            }
+
+            auspostCreateOrderFromShipments({
+                shipments: shipments
+            },
+            function(data) {
+
+                auspostGetOrderSummary(data.order.order_id, function(data) {
+
+                    // Set response content type
+                    res.contentType('application/pdf')
+
+                    res.send(data)
+                })
+
+                
+            })
+        })
+
+        
     })
 
     return router

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        {{> partials/head }}
+
+        <!-- Javascript -->
+        <script src="/socket.io/socket.io.js"></script>
+
+        <!-- Stylesheet -->
+        <style>
+            .view .header {
+                /* Alignment */
+                margin-top: 18px;
+                margin-left: 30px;
+            }
+
+            .view .header h1 {
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 25px;
+                font-weight: 400;
+
+                /* Colour */
+                color: #2d3436;
+            }
+
+            .view .header h2 {
+                margin-left: 5px;
+
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 25px;
+                font-weight: 300;
+
+                /* Colour */
+                color: #2d3436;
+            }
+
+            .view .container {
+                width: 800px;
+
+                margin-top: 50px;
+                align-self: center;
+
+                overflow-y: scroll;
+            }
+
+            .view .container .info {
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            .view .container table {
+                /* Size */
+                width: 100%;
+
+                /* Alignment */
+                box-sizing: border-box;
+                border-collapse: separate;
+                border-spacing: 0px 20px;
+
+                /* Font */
+                font-family: 'Montseratt', sans-serif;
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            .view .container table td {
+                /* Size */
+                height: 44px;
+
+                /* Alignment */
+                padding: 0px 10px;
+
+                /* Colour */
+                background-color: #ecf0f1;
+            }
+
+            .view .container table td:last-child {
+                /* Width */
+                width: 180px;
+
+                /* Alignment */
+                text-align: center;
+
+                /* Colour */
+                color: #ffffff;
+            }
+
+            .view .container table .complete {
+                /* Colour */
+                background-color: #67b2e4;
+            }
+
+            .view .container table .packed {
+                /* Colour */
+                background-color: #67b2e4;
+            }
+
+            .view .container table .ready-to-pack {
+                /* Colour */
+                background-color: #62d995;
+            }
+
+            .view .container table .waiting-payment {
+                /* Colour */
+                background-color: #f5d34b;
+            }
+
+            .view .container table .void {
+                /* Colour */
+                background-color: #404040;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        {{> partials/side-menu }}
+        
+        <!-- View -->
+        <div class="view">
+            <!-- Header -->
+            <div class="row header">
+                <!-- Heading -->
+                <h1>AusPost</h1>
+
+                <!-- Sub Heading -->
+                <h2>Account</h2>
+            </div>
+
+            <!-- Container -->
+            <div class="col container">
+                <!-- Row -->
+                <div class="row">
+                    <!-- Info -->
+                    <!-- <p class="info"><i class="fas fa-info-circle"></i> Click an order below to start packing.</p> -->
+                </div>
+
+                <!-- Spacer -->
+                <br>
+
+                <!-- Row -->
+                <h3>Account</h3>
+
+                <div class="">
+                    <p>Account Number: {{account_number}}</p>
+                    <p>Name: {{name}}</p>
+                    <p>Valid From: {{valid_from}}</p>
+                    <p>Valid To: {{valid_to}}</p>
+                    <p>Expired: {{expired}}</p>
+                    <p>Lodgement Postcode: {{lodgement_postcode}}</p>
+                    <p>Email: {{email_address}}</p>
+                    <p>Is Location: {{is_location}}</p>
+                    <p>Is SSCC Non Standard Barcode Enabled: {{is_sscc_non_standard_barcode_enabled}}</p>
+                    <p>Work Centre Code: {{work_centre_code}}</p>
+                    <p>Work Centre Name: {{work_centre_name}}</p>
+                    <p>Contact Number: {{contact_number}}</p>
+                    <p>Account Source: {{account_source}}</p>
+                    <p>Merchant Location ID: {{merchant_location_id}}</p>
+                    <p>Credit Blocked: {{credit_blocked}}</p>
+                </div>
+
+                <!-- Spacer -->
+                <br>
+
+                <h3>Addresses</h3>
+
+                {{#addresses}}
+
+                    <!-- Row -->
+                    <div class="">
+                        <p>Address Type: {{type}}</p>
+                        <p>Address Lines: {{lines}}</p>
+                    </div>
+
+                    <!-- Spacer -->
+                    <br>
+                {{/addresses}}
+
+                <h3>Postage Products</h3>
+                {{#postage_products}}
+                    <div class="">
+                        <p>Type: {{type}}</p>
+                        <p>Product ID: {{product_id}}</p>
+                        <p>Authority To Leave Threshold: {{authority_to_leave_threshold}}</p>
+                    </div>
+
+                    <!-- Spacer -->
+                    <br>
+                {{/postage_products}}
+
+                <h3>Return Products</h3>
+                {{#return_products}}
+                    <div class="">
+                        <p>Type: {{type}}</p>
+                        <p>Product ID: {{product_id}}</p>
+                        <p>Authority To Leave Threshold: {{authority_to_leave_threshold}}</p>
+                    </div>
+
+                    <!-- Spacer -->
+                    <br>
+                {{/return_products}}
+            </div>
+        </div>
+    </body> 
+</html>
