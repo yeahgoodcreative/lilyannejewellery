@@ -117,6 +117,10 @@
                 background-color: #404040;
             }
 
+            .disabled {
+                opacity: 0.5;
+            }
+
         </style>
     </head>
 
@@ -200,22 +204,29 @@
             }
 
             function forward() {
-                $.ajax({
-                    method: "POST",
-                    url: "/orders/pack/3",
-                    data: {
-                        orderId: orderId,
-                        length: $('input[name=length]').val(),
-                        width: $('input[name=width]').val(),
-                        height: $('input[name=height]').val(),
-                        weight: $('input[name=weight]').val(),
-                    }
-                })
-                .done(function(data) {
-                    if (data.success) {
-                        window.location.href = '/orders/pack/4' + '?orderid=' + orderId
-                    }
-                });
+                if ($('#continue').hasClass('disabled')) {
+                    // Do nothing here, button is disabled
+                }
+                else {
+                    $('#continue').addClass('disabled')
+                    
+                    $.ajax({
+                        method: "POST",
+                        url: "/orders/pack/3",
+                        data: {
+                            orderId: orderId,
+                            length: $('input[name=length]').val(),
+                            width: $('input[name=width]').val(),
+                            height: $('input[name=height]').val(),
+                            weight: $('input[name=weight]').val(),
+                        }
+                    })
+                    .done(function(data) {
+                        if (data.success) {
+                            window.location.href = '/orders/pack/5' + '?orderid=' + orderId
+                        }
+                    })
+                }
             }
         </script>
     </body> 

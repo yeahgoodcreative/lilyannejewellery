@@ -19,7 +19,7 @@ var auspostGetAccounts = function(accountId, callback) {
     // Request options
     var options = {
         hostname: 'digitalapi.auspost.com.au',
-        path: '/test/shipping/v1/accounts/' + accountId,
+        path: '/shipping/v1/accounts/' + accountId,
         port: 443,
 
         method: 'GET',

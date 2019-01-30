@@ -22,7 +22,7 @@ var auspostGetItemPrices = function(data, callback) {
     // Request options
     var options = {
         hostname: 'digitalapi.auspost.com.au',
-        path: '/test/shipping/v1/prices/items',
+        path: '/shipping/v1/prices/items',
         port: 443,
 
         method: 'POST',

@@ -117,7 +117,7 @@ var bydesignGetOrders = function() {
                                 orderDetailId: item.OrderDetailID,
                                 itemId: item.ProductID,
                                 description: item.Description,
-                                quantity: item.quantity,
+                                quantity: item.Quantity,
                                 price: item.Price,
                                 volume: item.Volume,
                                 tax: item.Tax,

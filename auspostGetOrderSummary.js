@@ -20,7 +20,7 @@ var auspostGetOrderSummary = function(orderNumber, callback) {
     // Request options
     var options = {
         hostname: 'digitalapi.auspost.com.au',
-        path: '/test/shipping/v1/accounts/' + credentials.accountNumber + '/orders/' + orderNumber + '/summary',
+        path: '/shipping/v1/accounts/' + credentials.accountNumber + '/orders/' + orderNumber + '/summary',
         port: 443,
 
         method: 'GET',

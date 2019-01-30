@@ -11,27 +11,25 @@ var bydesignSetStatusShipped = function(orderId) {
     var url = 'https://api.securefreedom.com/lilyannedesigns/webservice/orderapi.asmx?wsdl'
 
     // Soap Client
-    // soap.createClient(url, function(err, client) {
+    soap.createClient(url, function(err, client) {
 
-    //     // Get order list recent
-    //     client.GetOrderListRecent({
-    //         Credentials: {
-    //             Username: config.bydesign.username,
-    //             Password: config.bydesign.password,
-    //             Token: config.bydesign.token
-    //         },
-    //         OrderID: orderId
-    //     }, 
-    //     function(err, result) {
-    //         // Throw error
-    //         if (err) throw err
+        // Get order list recent
+        client.SetStatusShipped({
+            Credentials: {
+                Username: config.bydesign.username,
+                Password: config.bydesign.password,
+                Token: config.bydesign.token
+            },
+            OrderID: orderId
+        }, 
+        function(err, result) {
+            // Throw error
+            if (err) throw err
 
-    //         console.log('[INFO] Order set status complete')
+            console.log('[INFO] Order set status complete for ' + orderId)
 
-    //     })
-    // })
-
-    console.log('ByDesign Status Shipped: ' + orderId)
+        })
+    })
 }
 
 module.exports = bydesignSetStatusShipped

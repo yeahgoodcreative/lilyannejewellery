@@ -260,6 +260,8 @@ var routes = function(io) {
 
                 console.log(data)
 
+                console.log(order)
+
                 for (price of data.items[0].prices) {
 
                     if (price.product_type == config.auspost.product_type) {

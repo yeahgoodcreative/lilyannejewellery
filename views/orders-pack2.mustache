@@ -110,6 +110,10 @@
                 background-color: #404040;
             }
 
+            .disabled {
+                opacity: 0.5;
+            }
+
         </style>
     </head>
 
@@ -173,7 +177,13 @@
             }
 
             function forward() {
-                window.location.href = '/orders/pack/3' + '?orderid=' + orderId
+                if ($('#continue').hasClass('disabled')) {
+                    // Do nothing here, button is disabled
+                }
+                else {
+                    $('#continue').addClass('disabled')
+                    window.location.href = '/orders/pack/4' + '?orderid=' + orderId
+                }
             }
         </script>
 

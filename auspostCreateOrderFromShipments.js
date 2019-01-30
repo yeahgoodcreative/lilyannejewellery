@@ -22,7 +22,7 @@ var auspostCreateOrderFromShipments = function(data, callback) {
     // Request options
     var options = {
         hostname: 'digitalapi.auspost.com.au',
-        path: '/test/shipping/v1/orders',
+        path: '/shipping/v1/orders',
         port: 443,
 
         method: 'PUT',
